@@ -1,0 +1,17 @@
+target
+*crdownlaod
+typesafe-activator-1.3.7.zip
+activator-dist-1.3.7/
+activator-dist-1.3.7-all.tar.gz
+cache.tar.gz
+20150817.json.tar.gz
+*.json
+*.log
+20150817.json.gz
+example-project/jmh.out
+project/target
+.idea
+.idea_modules
+hs_err*
+data.csv
+downloaded.out
