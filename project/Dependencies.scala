@@ -17,6 +17,7 @@ object Dependencies {
     val akkaHttpCore         = "com.typesafe.akka" %% "akka-http-core"                    % Version.akkaHttp
     val akkaHttp             = "com.typesafe.akka" %% "akka-http-experimental"            % Version.akkaHttp
     val akkaHttpSprayJson    = "com.typesafe.akka" %% "akka-http-spray-json-experimental" % Version.akkaHttp
+    val akkaHttpJacksonJson  = "com.typesafe.akka" %% "akka-http-jackson-experimental"    % Version.akkaHttp
     val akkaHttpXml          = "com.typesafe.akka" %% "akka-http-xml-experimental"        % Version.akkaHttp
     val akkaHttpTestkit      = "com.typesafe.akka" %% "akka-http-testkit"                 % Version.akkaHttp
     val akkaStreamTestkit    = "com.typesafe.akka" %% "akka-stream-testkit"               % Version.akkaHttp
@@ -48,7 +49,7 @@ object Dependencies {
   val core = Seq(akkaActor, akkaTestKit) ++ streams ++ testing ++ logging
   val engine = Seq(akkaActor) ++ testing ++ logging
   val service = Seq(akkaActor, akkaHttpCore, akkaHttp, akkaHttpSprayJson, akkaHttpXml, akkaHttpTestkit) ++ testing ++ logging
-  val alpakka = Seq(akkaStreamKafka, akkaStreamContrib, akkaStreamContribAmqp, akkaStreamContribMqtt, akkaStreamContribXmlDeps)
+  val alpakka = Seq(akkaStreamKafka, akkaStreamContrib, akkaHttpJacksonJson, akkaHttpSprayJson, akkaStreamContribAmqp, akkaStreamContribMqtt, akkaStreamContribXmlDeps)
 
   val all = core ++ engine ++ service ++ alpakka
 }
