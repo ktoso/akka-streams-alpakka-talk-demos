@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title>Akka JavaOne - WebSocket chat demo</title>
+</head>
+<body>
+    <input type="text" id="in"/>
+    <button id="send">Send</button>
+    
+<div id="chat">
+</div>
+
+<script language="javascript">
+      var chat = document.getElementById("chat")
+      var connection = new WebSocket('ws://localhost:8080/chat')
+      connection.onopen = function () {
+        var input = document.getElementById("in")
+        var send = document.getElementById("send")
+        send.onclick = function() {
+          connection.send(input.value)
+        }
+      }
+      connection.onerror = function (error) {
+         chat.appendChild(document.createTextNode(error))
+      }
+      connection.onmessage = function (e) {
+        var message = document.createElement("div")
+        var text = document.createTextNode(e.data)
+        message.appendChild(text)
+        chat.appendChild(message)
+      }
+      connection.onclose = function() {
+        chat.appendChild(document.createTextNode("Connection closed"))
+      }
+    
+    
+    
+
+</script>
+</body>
+</html>

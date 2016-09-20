@@ -5,6 +5,7 @@ object Dependencies {
     val akka     = "2.4.10"
     val akkaHttp = "2.4.10"
     val akkaStreamKafka = "0.11"
+    val akkaStreamContrib = "0.3"
     val logback = "1.1.2"
   }
 
@@ -23,8 +24,13 @@ object Dependencies {
     val akkaTestKit          = "com.typesafe.akka" %% "akka-testkit"                      % Version.akka
     val akkaMultiNodeTestKit = "com.typesafe.akka" %% "akka-multi-node-testkit"           % Version.akka
     
-    val akkaStreamKafka      = "com.typesafe.akka" %% "akka-stream-kafka"                 % Version.akkaStreamKafka
-    
+    // --- ALPAKKA ---
+    val akkaStreamKafka       = "com.typesafe.akka" %% "akka-stream-kafka"                 % Version.akkaStreamKafka
+    val akkaStreamContrib     = "com.typesafe.akka" %% "akka-stream-contrib"               % Version.akkaStreamContrib
+    val akkaStreamContribAmqp = "com.typesafe.akka" %% "akka-stream-contrib-amqp"          % Version.akkaStreamContrib
+    val akkaStreamContribMqtt = "com.typesafe.akka" %% "akka-stream-contrib-mqtt"          % Version.akkaStreamContrib
+    val akkaStreamContribXmlDeps = "com.fasterxml"   % "aalto-xml"                         % "1.0.0" // replace with XML module when published
+    // --- ALPAKKA ---
     
     val akkaSlf4j            = "com.typesafe.akka" %% "akka-slf4j"                    % Version.akka
     val logbackClassic       = "ch.qos.logback"    %  "logback-classic"               % Version.logback
@@ -42,8 +48,7 @@ object Dependencies {
   val core = Seq(akkaActor, akkaTestKit) ++ streams ++ testing ++ logging
   val engine = Seq(akkaActor) ++ testing ++ logging
   val service = Seq(akkaActor, akkaHttpCore, akkaHttp, akkaHttpSprayJson, akkaHttpXml, akkaHttpTestkit) ++ testing ++ logging
-  val kafka = Seq()
+  val alpakka = Seq(akkaStreamKafka, akkaStreamContrib, akkaStreamContribAmqp, akkaStreamContribMqtt, akkaStreamContribXmlDeps)
 
-  // all in one project, to be usable from Activator
-  val all = core ++ engine ++ service ++ kafka
+  val all = core ++ engine ++ service ++ alpakka
 }

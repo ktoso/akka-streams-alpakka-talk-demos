@@ -1,0 +1,41 @@
+<html>
+<head>
+    <title>Akka JavaOne - WebSocket progress streaming demo</title>
+</head>
+<body>
+
+<div id="log">
+</div>
+
+<script type="text/javascript" language="JavaScript">
+      
+var log = document.getElementById("log")
+log.style = "width: 100%"
+
+var connection = new WebSocket('ws://localhost:8080/progress')
+connection.onopen = function () {
+  connection.send("Give me progress plz.")
+}
+connection.onerror = function (error) {
+   log.appendChild(document.createTextNode(error))
+}
+connection.onmessage = function (e) {
+  var progress = JSON.parse(e.data);
+  
+  var el = document.getElementById(progress.id)
+  if (!el) {
+    var el = document.createElement("div")
+    el.id = progress.id
+    log.appendChild(el)
+  }
+  console.log(progress);
+  el.style = "color:white; background-color:blue; width:" + progress.progress;
+  el.innerHTML = progress.id + " @ " + progress.progress;
+}
+connection.onclose = function() {
+  chat.appendChild(document.createTextNode("Connection closed"))
+}
+
+</script>
+</body>
+</html>

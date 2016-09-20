@@ -1,11 +1,16 @@
 package javaone.step2_kafka_to_frauddetection;
 
+import akka.NotUsed;
 import akka.actor.ActorSystem;
 import akka.kafka.ConsumerSettings;
 import akka.kafka.Subscriptions;
 import akka.kafka.javadsl.Consumer;
 import akka.stream.ActorMaterializer;
 import akka.stream.Materializer;
+import akka.stream.javadsl.Flow;
+import akka.stream.javadsl.Source;
+import akka.stream.scaladsl.xml.Xml;
+import akka.util.ByteString;
 import org.apache.kafka.common.serialization.ByteArrayDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import scala.concurrent.duration.FiniteDuration;
@@ -18,11 +23,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class KafkaLogConsumer {
+public class Step2FraudDetection {
 
   private final static int MAX_CHUNK_SIZE = 1000;
   private final static FiniteDuration POLLING_INTERVAL = FiniteDuration.apply(1L, TimeUnit.MILLISECONDS);
-
 
   public static void main(String[] args) {
     if (args.length != 1) {
@@ -39,19 +43,18 @@ public class KafkaLogConsumer {
       .withGroupId("group1")
       .withBootstrapServers("localhost:9092");
 
-
     Consumer.plainSource(consumerSettings, Subscriptions.topics(topic))
-      .map(record -> parseLine(record.value()))
+      .map(record -> parseLine(record.value())) // TODO mention Streaming event push-pull Xml parsing we provide
       .filter(Try::isSuccess) // filter out unparseable
       .map(fraudulent -> detectFraud(fraudulent.get()))
       .filter(result -> result.isFraudulent)
       .groupedWithin(100, FiniteDuration.create(1, TimeUnit.MINUTES))
-      .runForeach(possibleFrauds -> writeFraudReport(possibleFrauds), materializer);
+      .runForeach(Step2FraudDetection::writeFraudReport, materializer);
 
   }
 
 
-  static class Entry {
+  public static class Entry {
     public final String timestamp;
     public final String host;
     public final String source;
@@ -64,7 +67,7 @@ public class KafkaLogConsumer {
     }
   }
   
-  static class FraudDetectionResult {
+  private static class FraudDetectionResult {
     public final boolean isFraudulent;
     public final Entry entry;
     public FraudDetectionResult(boolean isFraudulent, Entry entry) {

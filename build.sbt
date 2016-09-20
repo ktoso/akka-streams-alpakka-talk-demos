@@ -5,7 +5,7 @@ scalacOptions ++= List(
   "-deprecation",
   "-language:_",
   "-encoding", "UTF-8"
-)
+) 
 
 lazy val commonSettings = Seq(
   organization := "com.lightbend.akka",
@@ -18,5 +18,5 @@ commonSettings
 
 libraryDependencies ++= Dependencies.all
 
-
 fork in run := true
+ 
