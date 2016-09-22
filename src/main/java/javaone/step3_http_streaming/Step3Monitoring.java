@@ -48,15 +48,10 @@ public class Step3Monitoring {
         .map(t -> (Message) TextMessage.create(t));
 
     final Route site =
-      path("index", () ->
-        get(() ->
-          getFromResource("site/index-progress.html")
-        ));
+      path("index", () -> getFromResource("site/index-progress.html"));
 
     final Route ws =
-      path("progress", () ->
-        handleWebSocketMessages(progressFlow)
-      );
+      path("progress", () -> handleWebSocketMessages(progressFlow));
 
     final Flow<HttpRequest, HttpResponse, NotUsed> handler =
       site.orElse(ws)
