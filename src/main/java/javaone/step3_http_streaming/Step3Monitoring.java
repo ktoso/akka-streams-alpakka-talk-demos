@@ -1,4 +1,4 @@
-package javaone.step3_websocket_monitoring;
+package javaone.step3_http_streaming;
 
 import akka.NotUsed;
 import akka.actor.ActorSystem;
@@ -15,8 +15,6 @@ import akka.stream.Materializer;
 import akka.stream.javadsl.*;
 
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.IntStream;
-import java.util.stream.StreamSupport;
 
 import static akka.http.javadsl.server.Directives.*;
 
@@ -68,7 +66,7 @@ public class Step3Monitoring {
       ConnectHttp.toHost("localhost", 8080),
       materializer
     );
-    System.out.println("Running at http://localhost:8080");
+    System.out.println("Running at http://localhost:8080/index");
 
   }
 

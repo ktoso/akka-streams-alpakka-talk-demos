@@ -1,18 +1,11 @@
-package javaone.step3_websocket_monitoring;
+package javaone.step3_http_streaming;
 
 import akka.NotUsed;
-import akka.actor.AbstractActor;
-import akka.actor.Actor;
-import akka.japi.pf.ReceiveBuilder;
-import akka.stream.ActorMaterializer;
 import akka.stream.Materializer;
 import akka.stream.javadsl.Sink;
 import akka.stream.javadsl.Source;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import scala.concurrent.duration.FiniteDuration;
 
-import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 

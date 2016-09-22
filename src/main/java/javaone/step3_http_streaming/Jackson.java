@@ -1,4 +1,4 @@
-package javaone.step3_websocket_monitoring;
+package javaone.step3_http_streaming;
 
 import akka.http.javadsl.marshalling.Marshaller;
 import akka.http.javadsl.model.ContentTypes;

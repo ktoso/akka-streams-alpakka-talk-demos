@@ -1,4 +1,4 @@
-package javaone.step3_websocket_monitoring;
+package javaone.step3_http_streaming;
 
 import akka.actor.ActorSystem;
 
@@ -13,10 +13,6 @@ import akka.http.javadsl.server.Route;
 import akka.japi.Pair;
 import akka.stream.*;
 import akka.stream.javadsl.*;
-import akka.stream.stage.AbstractInHandler;
-import akka.stream.stage.AbstractOutHandler;
-import akka.stream.stage.GraphStage;
-import akka.stream.stage.GraphStageLogic;
 
 import static akka.http.javadsl.server.Directives.*;
 
@@ -60,7 +56,7 @@ public class Step3WebSocketChat {
       ConnectHttp.toHost("localhost", 8080),
       materializer
     );
-    System.out.println("Running at http://localhost:8080");
+    System.out.println("Running at http://localhost:8080/index");
 
   }
 
