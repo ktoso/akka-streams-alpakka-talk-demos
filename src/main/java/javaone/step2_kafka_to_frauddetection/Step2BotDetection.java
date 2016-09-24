@@ -42,15 +42,11 @@ public class Step2BotDetection {
     
     final Source<ConsumerRecord<byte[], String>, Consumer.Control> kafkaSource = 
       Consumer.plainSource(consumerSettings, Subscriptions.topics(topic))
-//        .map(f -> {
-//          System.out.println("f = " + f);
-//          return f;
-//        })
       ;
     
     
     kafkaSource
-      .map(record -> parseLine(record.value())) // TODO mention Streaming event push-pull Xml parsing we provide
+      .map(record -> parseLine(record.value())) 
       .filter(Try::isSuccess) // filter out unparseable
       .map(tweet -> detectBot(tweet.get()))
       .filter(result -> result.isBot)

@@ -38,7 +38,11 @@ public class Step3Monitoring {
     for (int i = 0; i < 10; i++) {
       final String jobId = "job-00" + i;
       System.out.println("Starting job: " + jobId);
-      ProgressReporter.reportTo(jobId, ThreadLocalRandom.current().nextInt(500, 2000), progressIn, materializer);
+      
+      
+      
+      ProgressReporter.reportTo(jobId, 
+        ThreadLocalRandom.current().nextInt(500, 2000), progressIn, materializer);
     }
 
     final Flow<Message, Message, NotUsed> progressFlow =
