@@ -1,5 +1,5 @@
-Akka Streams and HTTP Workshop
-==============================
+Alpakka Demos
+=============
 Delivered at:
-  - Scala Exchange 2015 in London
-  - Łódź Java User Group 2016
+  - Reactive Summit, Austin, 2016
+  - Lightbend webinars, January 2017
